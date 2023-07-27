@@ -1,14 +1,17 @@
 package com.example.fkzi.controller;
 
 
-import com.example.fkzi.model.User;
+import com.example.fkzi.model.Subject;
+import com.example.fkzi.service.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 
 
 @Controller
@@ -16,26 +19,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 @PreAuthorize("hasAuthority('ADMIN')")
 public class AdminController {
 
+    private final SubjectService subjectService;
+
     @GetMapping("/admin")
     public String admin(Model model) {
         return "adminPanel";
     }
 
-    @GetMapping("/registration")
-    public String registration(Model model) {
-        return "registration";
+    @GetMapping("/subjects")
+    public String subjects(Model model) {
+        List<Subject> subjects = subjectService.getAllSubjects();
+        model.addAttribute("subjects", subjects);
+        return "subjects";
+    }
+
+    @PostMapping("/addSubject")
+    public String addSubject(@RequestParam String subjectName) {
+
+        Subject subject = new Subject();
+        subject.setSubjectName(subjectName);
+        subjectService.saveSubject(subject);
+        return "redirect:/subjects";
     }
 
 
-    @PostMapping("/registration")
-    public String createUser(User user, Model model) {
-      //  if (!userService.createUser(user)) {
-        //    if (!userServiceImpl.createUser(user)) {
-                model.addAttribute("errorMessage", "Пользователь с email: " + user.getEmail() + " уже существует");
-                return "registration";
-        //    }
 
-      //  }
-      //  return "redirect:/activate";
-    }
 }

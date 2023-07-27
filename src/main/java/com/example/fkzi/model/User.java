@@ -1,29 +1,59 @@
 package com.example.fkzi.model;
 
-import jakarta.persistence.*;
+
 import lombok.Data;
+
+import javax.persistence.*;
+
 
 @Entity
 @Table(name = "users")
 @Data
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "user_id")
+    private int userId;
 
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String patronymic;
-    private String groupNumber;
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
+
+    @Column(name = "is_admin", nullable = false)
+    private boolean isAdmin;
+
+    @Column(name = "mailbox_address", nullable = false, unique = true)
+    private String mailboxAddress;
+
+    @Column(name = "user_password", nullable = false)
+    private String userPassword;
+
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
+
+    @Column(name = "group_id", nullable = false, length = 10)
+    private String groupId;
+
+    @Column(name = "avatar")
+    private String avatar;
+
+    @Column(name = "job_title", nullable = false)
+    private String jobTitle;
+
+    @Column(name = "additional_job_title")
+    private String additionalJobTitle;
+
+    @Column(name = "is_on_scholarships")
+    private Boolean isOnScholarships;
+
+    @Column(name = "education_form")
     private String educationForm;
-    private UserType userType;
 
+    @Column(name = "subjects_id")
+    private Integer subjectsId;
 
-    public enum UserType {
-        STUDENT,
-        TEACHER,
-        ADMIN
-    }
+    @Column(name = "google_data")
+    private String googleData;
+
 }
 

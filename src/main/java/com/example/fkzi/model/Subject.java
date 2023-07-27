@@ -1,23 +1,25 @@
 package com.example.fkzi.model;
 
-import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Set;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "subjects")
 @Data
 public class Subject {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "subject_id")
+    private int subjectId;
 
-    private String name;
+    @Column(name = "subject_name", nullable = false, columnDefinition = "varchar(255) collate utf8mb4_unicode_ci")
+    private String subjectName;
 
-    @OneToMany(mappedBy = "subject")
-    private Set<Grade> grades;
-
+    @Column(name = "learning_materials", columnDefinition = "varchar(255) collate utf8mb4_unicode_ci")
+    private String learningMaterials;
 
 }
+
 
