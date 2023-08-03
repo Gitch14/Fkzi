@@ -1,7 +1,7 @@
 package com.example.fkzi.controller;
 
 import com.example.fkzi.model.Homework;
-import com.example.fkzi.service.HomeWorkService;
+import com.example.fkzi.service.Impl.HomeWorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

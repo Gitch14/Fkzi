@@ -1,4 +1,4 @@
-package com.example.fkzi.service;
+package com.example.fkzi.service.Impl;
 
 import com.example.fkzi.model.Homework;
 import com.example.fkzi.repository.HomeworkRepository;

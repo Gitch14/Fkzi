@@ -1,7 +1,7 @@
 package com.example.fkzi.config;
 
 
-import com.example.fkzi.service.CustomUserDetailsServiceImpl;
+import com.example.fkzi.service.Impl.CustomUserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
