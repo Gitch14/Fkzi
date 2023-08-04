@@ -1,7 +1,7 @@
 package com.example.fkzi.validator;
 
 import com.example.fkzi.model.ConstraintValidationMessage;
-import com.example.fkzi.model.UserRequest;
+import com.example.fkzi.model.user.UserRequest;
 import com.example.fkzi.model.enumP.Group;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.http.HttpStatus;

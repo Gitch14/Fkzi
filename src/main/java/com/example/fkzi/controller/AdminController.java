@@ -2,7 +2,8 @@ package com.example.fkzi.controller;
 
 
 import com.example.fkzi.model.Subject;
-import com.example.fkzi.model.User;
+import com.example.fkzi.model.user.User;
+import com.example.fkzi.model.user.UserRequest;
 import com.example.fkzi.service.Impl.SubjectService;
 import com.example.fkzi.service.Impl.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+import static com.example.fkzi.model.Constants.*;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -26,56 +29,42 @@ public class AdminController {
     private final SubjectService subjectService;
     private final UserService userService;
 
-    @GetMapping("/admin")
+    @GetMapping(ADMIN_PANEL)
     public String admin(Model model) {
         return "adminPanel";
     }
 
-    @GetMapping("/subjects")
+    @GetMapping(SUBJECTS)
     public String subjects(Model model) {
         List<Subject> subjects = subjectService.getAllSubjects();
         model.addAttribute("subjects", subjects);
         return "subjects";
     }
 
-    @PostMapping("/addSubject")
+    @PostMapping(ADD_SUBJECT)
     public String addSubject(@RequestParam String subjectName) {
-
         Subject subject = new Subject();
         subject.setSubjectName(subjectName);
         subjectService.saveSubject(subject);
         return "redirect:/subjects";
     }
 
-    @PostMapping("/registration")
-    public ResponseEntity<User> registerUser(@RequestBody User user,
-                                             @RequestParam("isActive") Boolean isActive,
-                                             @RequestParam("isAdmin") Boolean isAdmin,
-                                             @RequestParam("mailboxAddress") String mailboxAddress,
-                                             @RequestParam("userPassword") String userPassword,
-                                             @RequestParam("fullName") String fullName,
-                                             @RequestParam("groupId") String groupId/*,
-                                             @RequestParam("avatar") String avatar*/,
-                                             @RequestParam("jobTitle") String jobTitle,
-                                             @RequestParam("additionalJobTitle") String additionalJobTitle,
-                                             @RequestParam("isOnScholarships") Boolean isOnScholarships,
-                                             @RequestParam("educationForm") String educationForm,
-                                             @RequestParam("subjectsId") Integer subjectsId/*,
-                                             @RequestParam("googleData") String googleData*/) {
-
-        user.setActive(isActive);
-        user.setAdmin(isAdmin);
-        user.setMailboxAddress(mailboxAddress);
-        user.setUserPassword(userPassword);
-        user.setFullName(fullName);
-        user.setGroupId(groupId);
-        // user.setAvatar(avatar); - coming soon
-        user.setJobTitle(jobTitle);
-        user.setAdditionalJobTitle(additionalJobTitle);
-        user.setIsOnScholarships(isOnScholarships);
-        user.setEducationForm(educationForm);
-        user.setSubjectsId(subjectsId);
-        // user.setGoogleData(googleData); - coming soon
+    @PostMapping(CREATE_USER)
+    public ResponseEntity<User> registerUser(@RequestBody UserRequest request) {
+        User user = new User();
+        user.setActive(request.getIsActive());
+        user.setAdmin(request.getIsAdmin());
+        user.setMailboxAddress(request.getMailboxAddress());
+        user.setUserPassword(request.getUserPassword());
+        user.setFullName(request.getFullName());
+        user.setGroupId(request.getGroupId());
+        // user.setAvatar(request.getAvatar()); - coming soon
+        user.setJobTitle(request.getJobTitle());
+        user.setAdditionalJobTitle(request.getAdditionalJobTitle());
+        user.setIsOnScholarships(request.getIsOnScholarships());
+        user.setEducationForm(request.getEducationForm());
+        user.setSubjectsId(request.getSubjectsId());
+        // user.setGoogleData(request.getGoogleData()); - coming soon
 
         User registeredUser = userService.registration(user);
         return ResponseEntity.ok(registeredUser);

@@ -1,4 +1,4 @@
-package com.example.fkzi.model;
+package com.example.fkzi.model.user;
 
 import lombok.Data;
 
