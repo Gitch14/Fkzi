@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>User Registration</title>
+    <script src="../../../../api/registration.js"></script>
 </head>
 <body>
 <h1>User Registration Form</h1>
@@ -26,7 +27,10 @@
     </select>
 
     <label for="additionalJobTitle">Additional Job Title:</label>
-    <input type="text" id="additionalJobTitle" name="additionalJobTitle" th:field="*{additionalJobTitle}">
+    <select id="additionalJobTitle" name="additionalJobTitle" th:field="*{additionalJobTitle}" required>
+        <option th:each="role : ${T(com.example.fkzi.model.enumP.Role).values()}"
+                th:value="${role}" th:text="${role}"></option>
+    </select>
 
     <label for="isOnScholarships">Is on Scholarships:</label>
     <input type="checkbox" id="isOnScholarships" name="isOnScholarships" th:field="*{isOnScholarships}">
@@ -46,40 +50,6 @@
     <button type="button" onclick="registerUser()">Register</button>
 </form>
 </body>
-<script>
-    function registerUser() {
 
-        // Создаем объект с данными из формы
-        var user = {
-            fullName: document.getElementById("fullName").value,
-            mailboxAddress: document.getElementById("mailboxAddress").value,
-            userPassword: document.getElementById("userPassword").value,
-            groupId: document.getElementById("groupId").value,
-            jobTitle: document.getElementById("jobTitle").value,
-            additionalJobTitle: document.getElementById("additionalJobTitle").value,
-            isOnScholarships: document.getElementById("isOnScholarships").value,
-            educationForm: document.getElementById("educationForm").value,
-            subjectsId: document.getElementById("subjectsId").value
-
-            // Добавьте другие поля аналогичным образом
-        };
-
-        // Отправляем данные на сервер с использованием AJAX
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/registration", true);
-        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    alert("User registered successfully!");
-                    // Можно выполнить другие действия после успешной регистрации
-                } else {
-                    alert("Error registering user: " + xhr.statusText);
-                }
-            }
-        };
-        xhr.send(JSON.stringify(user));
-    }
-</script>
 
 </html>

@@ -7,7 +7,7 @@ import com.example.fkzi.service.Impl.SubjectService;
 import com.example.fkzi.service.Impl.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +22,7 @@ import static com.example.fkzi.model.Constants.*;
 
 @Controller
 @RequiredArgsConstructor
-//@PreAuthorize("hasAuthority('Admin')")
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class AdminController {
 
     private final SubjectService subjectService;
