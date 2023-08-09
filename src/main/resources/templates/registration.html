@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+</head>
+<body>
+<h1>User Registration Form</h1>
+<form action="/registration" method="post" th:object="${user}">
+    <label for="fullName">Full Name:</label>
+    <input type="text" id="fullName" name="fullName" th:field="*{fullName}" required>
+
+    <label for="mailboxAddress">Mailbox Address:</label>
+    <input type="email" id="mailboxAddress" name="mailboxAddress" th:field="*{mailboxAddress}" required>
+
+    <label for="userPassword">Password:</label>
+    <input type="text" id="userPassword" name="userPassword" th:field="*{userPassword}" required>
+
+    <label for="groupId">Group ID:</label>
+    <input type="text" id="groupId" name="groupId" th:field="*{groupId}" required>
+
+    <label for="jobTitle">Job Title:</label>
+    <select id="jobTitle" name="jobTitle" th:field="*{jobTitle}" required>
+        <option th:each="role : ${T(com.example.fkzi.model.enumP.Role).values()}"
+                th:value="${role}" th:text="${role}"></option>
+    </select>
+
+    <label for="additionalJobTitle">Additional Job Title:</label>
+    <input type="text" id="additionalJobTitle" name="additionalJobTitle" th:field="*{additionalJobTitle}">
+
+    <label for="isOnScholarships">Is on Scholarships:</label>
+    <input type="checkbox" id="isOnScholarships" name="isOnScholarships" th:field="*{isOnScholarships}">
+
+    <label for="educationForm">Education Form:</label>
+    <select id="educationForm" name="educationForm" th:field="*{educationForm}">
+        <option value="FULL_TIME">Full Time</option>
+        <option value="PART_TIME">Part Time</option>
+        <option value="DISTANCE">Distance</option>
+    </select>
+
+    <label for="subjectsId">Subjects ID:</label>
+    <input type="text" id="subjectsId" name="subjectsId" th:field="*{subjectsId}">
+
+
+
+    <button type="button" onclick="registerUser()">Register</button>
+</form>
+</body>
+<script>
+    function registerUser() {
+
+        // Создаем объект с данными из формы
+        var user = {
+            fullName: document.getElementById("fullName").value,
+            mailboxAddress: document.getElementById("mailboxAddress").value,
+            userPassword: document.getElementById("userPassword").value,
+            groupId: document.getElementById("groupId").value,
+            jobTitle: document.getElementById("jobTitle").value,
+            additionalJobTitle: document.getElementById("additionalJobTitle").value,
+            isOnScholarships: document.getElementById("isOnScholarships").value,
+            educationForm: document.getElementById("educationForm").value,
+            subjectsId: document.getElementById("subjectsId").value
+
+            // Добавьте другие поля аналогичным образом
+        };
+
+        // Отправляем данные на сервер с использованием AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/registration", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    alert("User registered successfully!");
+                    // Можно выполнить другие действия после успешной регистрации
+                } else {
+                    alert("Error registering user: " + xhr.statusText);
+                }
+            }
+        };
+        xhr.send(JSON.stringify(user));
+    }
+</script>
+
+</html>

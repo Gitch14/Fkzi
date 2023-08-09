@@ -3,12 +3,11 @@ package com.example.fkzi.controller;
 
 import com.example.fkzi.model.Subject;
 import com.example.fkzi.model.user.User;
-import com.example.fkzi.model.user.UserRequest;
 import com.example.fkzi.service.Impl.SubjectService;
 import com.example.fkzi.service.Impl.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +22,7 @@ import static com.example.fkzi.model.Constants.*;
 
 @Controller
 @RequiredArgsConstructor
-@PreAuthorize("hasAuthority('Admin')")
+//@PreAuthorize("hasAuthority('Admin')")
 public class AdminController {
 
     private final SubjectService subjectService;
@@ -49,13 +48,20 @@ public class AdminController {
         return "redirect:/subjects";
     }
 
-    @PostMapping(CREATE_USER)
-    public ResponseEntity<User> registerUser(@RequestBody UserRequest request) {
+    @GetMapping("/registration1")
+    public String regGet(Model model){
         User user = new User();
-        user.setActive(request.getIsActive());
-        user.setAdmin(request.getIsAdmin());
+        model.addAttribute("user", user);
+        return "registration";
+    }
+
+    @PostMapping(CREATE_USER)
+    public ResponseEntity<User> registerUser(@RequestBody User request) {
+        User user = new User();
+        user.setActive(false);
+        user.setAdmin(false);
         user.setMailboxAddress(request.getMailboxAddress());
-        user.setUserPassword(request.getUserPassword());
+        user.setUserPassword(request.getPassword());
         user.setFullName(request.getFullName());
         user.setGroupId(request.getGroupId());
         // user.setAvatar(request.getAvatar()); - coming soon

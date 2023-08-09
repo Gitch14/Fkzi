@@ -1,7 +1,7 @@
 package com.example.fkzi.validator;
 
 import com.example.fkzi.model.ConstraintValidationMessage;
-import com.example.fkzi.model.user.UserRequest;
+import com.example.fkzi.model.user.User;
 import com.example.fkzi.model.enumP.Group;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.http.HttpStatus;
@@ -11,10 +11,10 @@ import java.util.ArrayList;
 
 @Component
 public class RegistrationValidation implements AccountValidator{
-    public ConstraintValidationMessage validateAccountRequest(UserRequest request) {
+    public ConstraintValidationMessage validateAccountRequest(User request) {
         ConstraintValidationMessage validationMessage = new ConstraintValidationMessage();
         validationMessage.setListOfErrors(new ArrayList<>());
-        validationMessage.setCode(HttpStatus.BAD_REQUEST.value());
+        validationMessage.setCode(HttpStatus.OK.value());
 
         if (request == null) {
             validationMessage.setCode(HttpStatus.BAD_REQUEST.value());
@@ -32,15 +32,11 @@ public class RegistrationValidation implements AccountValidator{
             validationMessage.setMessage("eMail is not valid");
         }
 
-        if (request.getUserPassword().isBlank()) {
+        if (request.getPassword().isBlank()) {
             validationMessage.setCode(HttpStatus.BAD_REQUEST.value());
             validationMessage.setMessage("Password is not valid");
         }
 
-        if (request.getJobTitle().isBlank()) {
-            validationMessage.setCode(HttpStatus.BAD_REQUEST.value());
-            validationMessage.setMessage("Password is not valid");
-        }
 
         if (request.getGroupId().isBlank()) {
             validationMessage.setCode(HttpStatus.BAD_REQUEST.value());
@@ -52,10 +48,6 @@ public class RegistrationValidation implements AccountValidator{
                 validationMessage.setMessage("Invalid groupID");
         }
 
-        if (request.getJobTitle().isBlank()) {
-            validationMessage.setCode(HttpStatus.BAD_REQUEST.value());
-            validationMessage.setMessage("GroupId is not valid");
-        }
 
 
         return validationMessage;

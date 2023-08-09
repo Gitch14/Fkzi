@@ -2,11 +2,11 @@ package com.example.fkzi.service.Impl;
 
 import com.example.fkzi.model.ConstraintValidationMessage;
 import com.example.fkzi.model.user.User;
-import com.example.fkzi.model.user.UserRequest;
 import com.example.fkzi.repository.UserRepository;
 import com.example.fkzi.validator.RegistrationValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -16,24 +16,28 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final RegistrationValidation registrationValidation;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, RegistrationValidation registrationValidation) {
+    public UserService(UserRepository userRepository, RegistrationValidation registrationValidation, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.registrationValidation = registrationValidation;
+        this.passwordEncoder = passwordEncoder;
     }
+
 
     public User registration(User user)
     {
 
-        ConstraintValidationMessage validationMessage = registrationValidation.validateAccountRequest(convertToUserRequest(user));
+        ConstraintValidationMessage validationMessage = registrationValidation.validateAccountRequest(user);
         if (validationMessage.getCode() != HttpStatus.OK.value()) {
             throw new IllegalArgumentException(validationMessage.getMessage());
         }
-        user.setActive(false);
+
+        user.setActive(true);
         user.setAdmin(false);
         user.setMailboxAddress(user.getMailboxAddress());
-        user.setUserPassword(String.valueOf(generatePass()));
+        user.setUserPassword(passwordEncoder.encode(user.getPassword()));
         user.setFullName(user.getFullName());
         user.setGroupId(user.getGroupId());
         //  user.setAvatar(avatar); - coming soon
@@ -48,22 +52,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    private UserRequest convertToUserRequest(User user) {
-        UserRequest request = new UserRequest();
-        request.setIsActive(user.isActive());
-        request.setIsAdmin(user.isAdmin());
-        request.setMailboxAddress(user.getMailboxAddress());
-        request.setUserPassword(user.getUserPassword());
-        request.setFullName(user.getFullName());
-        request.setGroupId(user.getGroupId());
-        request.setJobTitle(user.getJobTitle());
-        request.setAdditionalJobTitle(user.getAdditionalJobTitle());
-        request.setIsOnScholarships(user.getIsOnScholarships());
-        request.setEducationForm(user.getEducationForm());
-        request.setSubjectsId(user.getSubjectsId());
-
-        return request;
-    }
 
     private UUID generatePass(){
         return UUID.randomUUID();
