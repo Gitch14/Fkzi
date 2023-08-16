@@ -1,7 +1,7 @@
 package com.example.fkzi;
 
-import com.example.fkzi.model.enumP.Role;
-import com.example.fkzi.model.user.User;
+import com.example.fkzi.model.util.enums.Role;
+import com.example.fkzi.model.User;
 import com.example.fkzi.repository.UserRepository;
 import com.example.fkzi.service.Impl.CustomUserDetailsServiceImpl;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,9 @@
-package com.example.fkzi.validator;
+package com.example.fkzi.validator.impl;
 
-import com.example.fkzi.model.ConstraintValidationMessage;
-import com.example.fkzi.model.user.User;
-import com.example.fkzi.model.enumP.Group;
+import com.example.fkzi.model.util.constanta.ConstraintValidationMessage;
+import com.example.fkzi.model.User;
+import com.example.fkzi.model.util.enums.Group;
+import com.example.fkzi.validator.AccountValidator;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 
 @Component
-public class RegistrationValidation implements AccountValidator{
+public class RegistrationValidation implements AccountValidator {
     public ConstraintValidationMessage validateAccountRequest(User request) {
         ConstraintValidationMessage validationMessage = new ConstraintValidationMessage();
         validationMessage.setListOfErrors(new ArrayList<>());

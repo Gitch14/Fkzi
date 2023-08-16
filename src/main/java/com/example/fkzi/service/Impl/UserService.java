@@ -1,9 +1,9 @@
 package com.example.fkzi.service.Impl;
 
-import com.example.fkzi.model.ConstraintValidationMessage;
-import com.example.fkzi.model.user.User;
+import com.example.fkzi.model.util.constanta.ConstraintValidationMessage;
+import com.example.fkzi.model.User;
 import com.example.fkzi.repository.UserRepository;
-import com.example.fkzi.validator.RegistrationValidation;
+import com.example.fkzi.validator.impl.RegistrationValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;

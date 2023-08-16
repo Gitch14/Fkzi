@@ -15,7 +15,7 @@
 };
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/registration", true);
+    xhr.open("POST", "/create-user", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {

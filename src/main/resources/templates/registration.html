@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>User Registration Form</h1>
-<form action="/registration" method="post" th:object="${user}">
+<form action="/create-user" method="post" th:object="${user}">
     <label for="fullName">Full Name:</label>
     <input type="text" id="fullName" name="fullName" th:field="*{fullName}" required>
 
@@ -22,13 +22,13 @@
 
     <label for="jobTitle">Job Title:</label>
     <select id="jobTitle" name="jobTitle" th:field="*{jobTitle}" required>
-        <option th:each="role : ${T(com.example.fkzi.model.enumP.Role).values()}"
+        <option th:each="role : ${T(com.example.fkzi.model.enums.Role).values()}"
                 th:value="${role}" th:text="${role}"></option>
     </select>
 
     <label for="additionalJobTitle">Additional Job Title:</label>
     <select id="additionalJobTitle" name="additionalJobTitle" th:field="*{additionalJobTitle}" required>
-        <option th:each="role : ${T(com.example.fkzi.model.enumP.Role).values()}"
+        <option th:each="role : ${T(com.example.fkzi.model.enums.Role).values()}"
                 th:value="${role}" th:text="${role}"></option>
     </select>
 

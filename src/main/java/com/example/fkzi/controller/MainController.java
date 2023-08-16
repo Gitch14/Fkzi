@@ -10,4 +10,9 @@ public class MainController {
     public String loginPage() {
         return "login";
     }
+
+    @GetMapping("/logout")
+    public String logoutPage() {
+        return "redirect:/";
+    }
 }

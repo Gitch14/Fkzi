@@ -1,4 +1,4 @@
-package com.example.fkzi.model;
+package com.example.fkzi.model.util.constanta;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

@@ -1,4 +1,4 @@
-package com.example.fkzi.model.user;
+package com.example.fkzi.model;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

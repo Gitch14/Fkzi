@@ -1,4 +1,4 @@
-package com.example.fkzi.model.enumP;
+package com.example.fkzi.model.util.enums;
 
 public enum Group {
     KN_11,

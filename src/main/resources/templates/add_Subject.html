@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Add Subject</title>
+  <script src="../../../../api/addSubject.js"></script>
+</head>
+<body>
+<h1>Add New Subject</h1>
+<form action="/add-subject" method="post" th:object="${subject}">
+  <label for="subjectName">Subject Name:</label>
+  <input type="text" id="subjectName" name="subjectName" th:field="*{subjectName}" required><br>
+
+  <label for="learningMaterials">Learning Materials:</label>
+  <textarea id="learningMaterials" name="learningMaterials" th:field="*{learningMaterials}"></textarea><br>
+
+  <button type="button" onclick="addSubject()">Add Subject</button>
+</form>
+
+</body>
+</html>

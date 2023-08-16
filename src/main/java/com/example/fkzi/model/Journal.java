@@ -1,6 +1,5 @@
 package com.example.fkzi.model;
 
-import com.example.fkzi.model.user.User;
 import lombok.Data;
 
 import javax.persistence.*;
