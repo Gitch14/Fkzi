@@ -1,7 +1,9 @@
 package com.example.fkzi.controller.api_controller;
 
+import com.example.fkzi.model.Homework;
 import com.example.fkzi.model.Subject;
 import com.example.fkzi.model.User;
+import com.example.fkzi.service.Impl.HomeWorkService;
 import com.example.fkzi.service.Impl.SubjectService;
 import com.example.fkzi.service.Impl.UserService;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.example.fkzi.model.util.constanta.ConstantsPost.ADD_SUBJECT;
-import static com.example.fkzi.model.util.constanta.ConstantsPost.CREATE_USER;
+import static com.example.fkzi.model.util.constanta.ConstantsPost.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ public class ApiController {
 
     private final UserService userService;
     private final SubjectService subjectService;
+    private final HomeWorkService hometaskService;
     @PostMapping(CREATE_USER)
     public ResponseEntity<User> registerUser(@RequestBody User request) {
         User user = new User();
@@ -41,11 +43,22 @@ public class ApiController {
     }
 
     @PostMapping(ADD_SUBJECT)
-    public  ResponseEntity<Subject> addSubject1(@RequestBody Subject subject) {
+    public  ResponseEntity<Subject> addSubject(@RequestBody Subject subject) {
         Subject newSubject = new Subject();
         newSubject.setSubjectName(subject.getSubjectName());
         newSubject.setLearningMaterials(subject.getLearningMaterials());
         Subject createSubject = subjectService.saveSubject(subject);
         return ResponseEntity.ok(createSubject);
+    }
+
+    @PostMapping(CREATE_HOMEWROK)
+    public ResponseEntity<Homework> createHometask(@RequestBody Homework homework) {
+        Homework newHomework = new Homework();
+        newHomework.setDueDate(homework.getDueDate());
+        newHomework.setHomeworksDescription(homework.getHomeworksDescription());
+        newHomework.setLinks(homework.getLinks());
+        newHomework.setAdditionalMaterials(homework.getAdditionalMaterials());
+        Homework savedHomeWork = hometaskService.saveHomeWork(newHomework);
+        return ResponseEntity.ok(savedHomeWork);
     }
 }
