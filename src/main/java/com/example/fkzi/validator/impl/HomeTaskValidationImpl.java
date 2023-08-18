@@ -8,7 +8,9 @@ import com.example.fkzi.validator.SubjectValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Component
 public class HomeTaskValidationImpl implements HomeTaskValidator {
@@ -26,6 +28,11 @@ public class HomeTaskValidationImpl implements HomeTaskValidator {
         if (entity.getDueDate() == null) {
             validationMessage.setCode(HttpStatus.BAD_REQUEST.value());
             validationMessage.setMessage("Data is not valid");
+        }
+
+        if (entity.getDueDate().before(new Date())) {
+            validationMessage.setCode(HttpStatus.BAD_REQUEST.value());
+            validationMessage.setMessage("Due Date cannot be earlier than today");
         }
 
         if (entity.getHomeworksDescription().isBlank()) {
