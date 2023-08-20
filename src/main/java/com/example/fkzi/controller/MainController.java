@@ -2,9 +2,9 @@ package com.example.fkzi.controller;
 
 import com.example.fkzi.model.User;
 import com.example.fkzi.repository.UserRepository;
-import com.example.fkzi.service.Impl.CustomUserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,9 +14,11 @@ public class MainController {
 
     private final UserRepository userRepository;
     private final Logger logger = LoggerFactory.getLogger(MainController.class);
+    private final PasswordEncoder passwordEncoder;
 
-    public MainController(UserRepository userRepository) {
+    public MainController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/login")
@@ -41,7 +43,7 @@ public class MainController {
         user.setAdmin(true);
         user.setActive(true);
         user.setMailboxAddress("root@gmail.com");
-        user.setUserPassword("root");
+        user.setUserPassword(passwordEncoder.encode("root"));
         user.setFullName("root");
         user.setGroupId("KN_41");
         user.setJobTitle("ROLE_ADMIN");
