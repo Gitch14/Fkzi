@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel</title>
+</head>
+<body>
+<h1>Admin Panel</h1>
+
+<ul>
+  <li th:each="us : ${user}">
+    <span th:text="${us.fullName}"></span>
+    <a th:href="@{/user/{id}(id=${us.userId})}">Перейти</a>
+  </li>
+</ul>
+</body>
+</html>

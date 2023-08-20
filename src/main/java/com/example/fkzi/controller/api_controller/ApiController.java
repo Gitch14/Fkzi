@@ -8,6 +8,7 @@ import com.example.fkzi.service.Impl.SubjectService;
 import com.example.fkzi.service.Impl.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,4 +62,16 @@ public class ApiController {
         Homework savedHomeWork = hometaskService.saveHomeWork(newHomework);
         return ResponseEntity.ok(savedHomeWork);
     }
+
+    @PostMapping("/user/update/{userId}")
+    public ResponseEntity<User> updateUser(@PathVariable Integer userId, @RequestBody User request) {
+        User updatedUser = userService.updateUser(userId, request);
+
+        if (updatedUser != null) {
+            return ResponseEntity.ok(updatedUser);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

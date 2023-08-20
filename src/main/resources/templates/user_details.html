@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Update User</title>
+  <script src="../../../../api/updateUser.js"></script>
+</head>
+<body>
+<h1>Update User</h1>
+<form th:action="@{/update/{userId}(userId=${user.userId})}" method="post" th:object="${user}">
+
+  <input type="hidden" id="userId" name="userId" th:value="${user.userId}">
+
+  <label for="mailboxAddress">Mailbox Address:</label>
+  <input type="email" id="mailboxAddress" name="mailboxAddress" th:field="*{mailboxAddress}">
+
+  <label for="fullName">Full Name:</label>
+  <input type="text" id="fullName" name="fullName" th:field="*{fullName}">
+
+  <label for="groupId">Group ID:</label>
+  <input type="text" id="groupId" name="groupId" th:field="*{groupId}">
+
+  <label for="jobTitle">Job Title:</label>
+  <select id="jobTitle" name="jobTitle" th:field="*{jobTitle}" required>
+    <option th:each="role : ${T(com.example.fkzi.model.util.enums.Role).values()}"
+            th:value="${role}" th:text="${role}"></option>
+  </select>
+
+  <label for="additionalJobTitle">Additional Job Title:</label>
+  <select id="additionalJobTitle" name="additionalJobTitle" th:field="*{additionalJobTitle}">
+    <option th:each="role : ${T(com.example.fkzi.model.util.enums.Role).values()}"
+            th:value="${role}" th:text="${role}"></option>
+  </select>
+
+  <label for="isOnScholarships">Is on Scholarships:</label>
+  <input type="checkbox" id="isOnScholarships" name="isOnScholarships" th:field="*{isOnScholarships}">
+
+  <label for="educationForm">Education Form:</label>
+  <select id="educationForm" name="educationForm" th:field="*{educationForm}">
+    <option value="FULL_TIME">Full Time</option>
+    <option value="PART_TIME">Part Time</option>
+    <option value="DISTANCE">Distance</option>
+  </select>
+
+  <label for="subjectsId">Subjects ID:</label>
+  <input type="text" id="subjectsId" name="subjectsId" th:field="*{subjectsId}">
+
+  <button type="button" onclick="updateUser()">Update User</button>
+</form>
+</body>
+</html>
